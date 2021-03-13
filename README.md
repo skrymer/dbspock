@@ -8,12 +8,11 @@ insert data
 
 assert db state
 
-
 Dataset format:
 Use json as dataformat.
 Allow 
 
-
+```groovy
 @DBSpock(datasetLocations = '')
 class Spec extends Specification {
 
@@ -25,3 +24,4 @@ class Spec extends Specification {
     insert()
   }
 }
+```
