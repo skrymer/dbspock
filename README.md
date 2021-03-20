@@ -1,27 +1,7 @@
-# dbspock
+# dbunit-extras
 
-Inspired by the features off DBUnit
+Json Dataset
 
-Requirements:
+Expressions in dataset
 
-insert data 
-
-assert db state
-
-Dataset format:
-Use json as dataformat.
-Allow 
-
-```groovy
-@DBSpock(datasetLocations = '')
-class Spec extends Specification {
-
-  @Shared
-  Connection connection
-
-  
-  def '' () {
-    insert()
-  }
-}
-```
+Spock integration
