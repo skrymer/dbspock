@@ -15,25 +15,27 @@ plugins {
 }
 
 repositories {
-    // Use JCenter for resolving dependencies.
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
     // https://mvnrepository.com/artifact/org.dbunit/dbunit
-    implementation group: 'org.dbunit', name: 'dbunit', version: '2.7.0'
+    compile group: 'org.dbunit', name: 'dbunit', version: '2.7.0'
 
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-core
-    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.12.2'
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.12.2'
 
-    // Use the latest Groovy version for Spock testing
-    testImplementation 'org.codehaus.groovy:groovy-all:3.0.7'
-
-    // Use the awesome Spock testing and specification framework even with Java
-    implementation 'org.spockframework:spock-core:2.0-M4-groovy-3.0'
+    // Spock
+    compile "org.codehaus.groovy:groovy:3.0.7"
+    testCompile platform("org.spockframework:spock-bom:2.0-M4-groovy-3.0")
+    testCompile "org.spockframework:spock-core"
 }
 
 application {
     // Define the main class for the application.
     mainClass = 'org.skrymer.dbunit.extras.App'
+}
+
+test {
+    useJUnitPlatform()
 }

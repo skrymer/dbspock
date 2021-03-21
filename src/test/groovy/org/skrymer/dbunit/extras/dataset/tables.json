@@ -1,0 +1,15 @@
+[
+  {
+    "Table1" : [
+      {"column1": "value1", "column2": "value2", "column3": "value3"},
+      {"column1": "value1", "column2": "value2", "column3": "value3"},
+      {"column1": "value1", "column2": "value2", "column3": "value3"}
+    ]
+  },
+  {
+    "Table2" : [
+      {"column1": "{REPLACEMENT1}::default1", "column2": "{REPLACEMENT2}", "column3": "{REPLACEMENT3}::default3"}
+    ]
+  }
+]
+
