@@ -52,7 +52,7 @@ class JsonDataSetSpec extends Specification {
         table.getValue(0, 'column3') == 'replaced3'
     }
 
-    def 'getTable() with default value if no replacement' () {
+    def 'getTable() with default value when no replacement' () {
         given: 'a json dataset file'
         def file = Path.of('src/test/groovy/org/skrymer/dbunit/extras/dataset/tables.json')
         def jsonDataSet = new JsonDataSet(file)

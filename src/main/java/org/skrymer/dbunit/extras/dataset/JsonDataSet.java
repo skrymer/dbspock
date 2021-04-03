@@ -6,7 +6,9 @@ import org.dbunit.dataset.*;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <pre>
@@ -20,13 +22,13 @@ import java.util.Map;
  *   },
  *   {
  *     "Table2" : [
- *       {"column1": "{REPLACEMENT1}::default1", "column2": "{REPLACEMENT2}::default2", "column3": "{REPLACEMENT3}::default3"}
+ *       {"column1": "{REPLACEMENT1}::default1", "column2": "111"}
  *     ]
  *   }
  * ]
  * <pre/>
  */
-public class JsonDataSet extends  AbstractDataSet {
+public class JsonDataSet extends AbstractDataSet {
   private final Path jsonFile;
   private final Map<String, String> stringReplacements;
   private final ObjectMapper objectMapper;
@@ -44,7 +46,7 @@ public class JsonDataSet extends  AbstractDataSet {
   @Override
   public String[] getTableNames() throws DataSetException {
     try {
-      var tableNames = new ArrayList<>();
+      var tableNames = new ArrayList<String>();
       objectMapper
           .readTree(jsonFile.toFile())
           .forEach(node -> node
@@ -53,7 +55,6 @@ public class JsonDataSet extends  AbstractDataSet {
           );
       return tableNames.toArray(new String[0]);
     } catch (IOException e) {
-      e.printStackTrace();
       throw new DataSetException("Could not load tables names from dataset");
     }
   }
@@ -66,14 +67,22 @@ public class JsonDataSet extends  AbstractDataSet {
           .findPath(tableName);
       return new JsonTable(columns, stringReplacements);
     } catch (IOException e) {
-      e.printStackTrace();
       throw new DataSetException("Could not load tables names from dataset");
     }
   }
 
   @Override
   public ITable[] getTables() throws DataSetException {
-    return new ITable[0];
+    return Arrays.stream(getTableNames())
+        .map(tableName -> {
+          try {
+            return getTable(tableName);
+          } catch (DataSetException e) {
+            return null;
+          }
+        })
+        .collect(Collectors.toList())
+        .toArray(new ITable[]{});
   }
 
   @Override

@@ -57,8 +57,10 @@ public class JsonTable implements ITable {
       : replacedValue;
   }
 
-  public boolean hasDefaultValue(String value){
-    return ofNullable(value).map(s -> s.matches("\\{.*}" + DEFAULT_VALUE_PREFIX + ".*")).orElse(false);
+  private boolean hasDefaultValue(String value){
+    return ofNullable(value)
+        .map(s -> s.matches("\\{.*}" + DEFAULT_VALUE_PREFIX + ".*"))
+        .orElse(false);
   }
 
   private Object getDefaultValue(String value) {
